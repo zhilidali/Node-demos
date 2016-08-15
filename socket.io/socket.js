@@ -25,4 +25,7 @@ io.sockets.on('connection', function(socket) {
 		count--;
 		socket.broadcast.emit('users', {number: count});
 	});
+	socket.on('usermsg', function (msg) {
+		socket.broadcast.emit('pushusermsg', msg);
+	});
 });

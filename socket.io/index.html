@@ -10,10 +10,30 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect('http://127.0.0.1:3000');
+		// 实时在线人数统计
 		var showNumber = document.getElementById('showNumber');
 		socket.on('users', function(data) {
 			showNumber.innerHTML = data.number;
 		});
 	</script>
+	<hr>
+	<form id="msg-form" action="#">
+      <textarea id="usermsg" rows="4" cols="30"></textarea>
+      <input type="submit" value="发送消息" />
+    </form>
+    <script>
+    	//客户端之间的双向通信
+    	var msgForm = document.getElementById('msg-form');
+    	var usermsg = document.getElementById('usermsg');
+    	msgForm.addEventListener('submit', function() {
+			socket.emit("usermsg", {msg: usermsg.value});
+			return false;
+		});
+		socket.on('pushusermsg', function (data) {
+			var p = document.createElement('p');
+			p.innerHTML = data.msg;
+			msgForm.appendChild(p);
+		});
+    </script>
 </body>
 </html>
