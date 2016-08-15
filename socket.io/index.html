@@ -9,6 +9,12 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect('http://127.0.0.1:3000');
+		socket.on('newmessage', function(msg) {
+			alert(msg.text);
+		});
+		socket.on('oldmessage', function(msg) {
+			aler(msg.text);
+		});
 	</script>
 </body>
 </html>
