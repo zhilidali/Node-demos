@@ -18,22 +18,41 @@
 	</script>
 	<hr>
 	<form id="msg-form" action="#">
-      <textarea id="usermsg" rows="4" cols="30"></textarea>
-      <input type="submit" value="发送消息" />
-    </form>
-    <script>
-    	//客户端之间的双向通信
-    	var msgForm = document.getElementById('msg-form');
-    	var usermsg = document.getElementById('usermsg');
-    	msgForm.addEventListener('submit', function() {
-			socket.emit("usermsg", {msg: usermsg.value});
-			return false;
+	  <textarea id="usermsg" rows="4" cols="30"></textarea>
+	  <input type="submit" value="发送消息" />
+	</form>
+	<script>
+		//客户端之间的双向通信
+		var msgForm = document.getElementById('msg-form');
+		var usermsg = document.getElementById('usermsg');
+		msgForm.addEventListener('submit', function() {
+			socket.emit("usermsg", {msg: usermsg.value});//发送消息给服务器
+			return false;//防止表单在浏览器中提交
 		});
 		socket.on('pushusermsg', function (data) {
 			var p = document.createElement('p');
 			p.innerHTML = data.msg;
 			msgForm.appendChild(p);
 		});
-    </script>
+	</script>
+	<hr>
+	<button id="ping">发送PING到服务器</button>
+	<script>
+		/*双向数据*/
+
+		socket.on('ping', function (data) {
+			console.log('收到PING，发送PONG');
+			socket.emit('pong', {text: 'PONG'});
+		});
+
+		//客户端发送ping，接收服务器的pong
+		socket.on('pong', function (data) {
+			console.log('收到PONG响应,PONG!');
+		});
+		document.getElementById('ping').addEventListener('click', function() {
+			console.log('发送PING到服务器');
+			socket.emit('ping', { text: 'PING' });
+		});
+	</script>
 </body>
 </html>

@@ -25,7 +25,24 @@ io.sockets.on('connection', function(socket) {
 		count--;
 		socket.broadcast.emit('users', {number: count});
 	});
+
+	//接收客户端消息，并发送到其他客户端
 	socket.on('usermsg', function (msg) {
 		socket.broadcast.emit('pushusermsg', msg);
+	});
+
+	/*双向数据*/
+	//服务器端发送ping，接收客户端的pong
+	setInterval(function() {
+		console.log('发送PING到客户端');
+		socket.emit('ping', { text: 'PING' });
+	}, 10000);
+	socket.on('pong', function (data) {
+		console.log('收到PONG响应，PONG!');
+	});
+
+	socket.on('ping', function (data) {
+		console.log('收到PING，发送PONG');
+		socket.emit('pong', { text: 'PONG' });
 	});
 });
