@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta charset="utf-8" />
 	<title>Socket.IO 示例</title>
 </head>
 <body>
 	<h1>Socket.IO 示例</h1>
+	<p>当前在线人数：<span id="showNumber"></span></p>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect('http://127.0.0.1:3000');
-		socket.on('newmessage', function(msg) {
-			alert(msg.text);
-		});
-		socket.on('oldmessage', function(msg) {
-			aler(msg.text);
+		var showNumber = document.getElementById('showNumber');
+		socket.on('users', function(data) {
+			showNumber.innerHTML = data.number;
 		});
 	</script>
 </body>

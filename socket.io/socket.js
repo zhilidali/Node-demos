@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var count = 0;//用于存储站点访问者数量的实时统计数据
 
 var server = http.createServer(function(req, res) {
 	fs.readFile('./index.html',function(err, data) {
@@ -15,10 +16,13 @@ var io = require('socket.io').listen(server);
 //让Socket.IO对特定事件和客户端消息做出响应
 io.sockets.on('connection', function(socket) {
 	console.log('客户端连接');
-	socket.emit('newmessage', {text:"只要客户端连接，就将数据发送到每个新的客户端"});
-	socket.broadcast.emit('oldmessage', {text:"将数据广播给所有已连接的客户端"});
+	count++;
+	socket.emit('users', {number: count});//只要客户端连接，就将数据发送到每个新的客户端
+	socket.broadcast.emit('users', {number: count});//将数据广播给所有已连接的客户端
 
 	socket.on('disconnect', function() {
 		console.log('客户端断开');
+		count--;
+		socket.broadcast.emit('users', {number: count});
 	});
 });
