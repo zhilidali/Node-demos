@@ -39,9 +39,9 @@
 * bin/module_name.js
 
 ```javascript
-#!/usr/bin/env node
-var module_name = require('../lib/module_name.js');
-console.log(module_name.hello());
+	#!/usr/bin/env node
+	var module_name = require('../lib/module_name.js');
+	console.log(module_name.hello());
 ```
 * 更新package.json
 
@@ -56,12 +56,24 @@ console.log(module_name.hello());
 * lib/module_name.js
 
 ```javascript
-module.exports = new Module_name();
+	module.exports = new Module_name();
 
-function Module_name(){}
-Module_name.prototype.hello = function(){
-	return "Hello World";
-};
+	function Module_name(){}
+	Module_name.prototype.hello = function(){
+		return "Hello World";
+	};
 ```
 
 * `$ npm test`
+
+##7. GitHub共享，更新package.json
+```json
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zhilidali/Node-demos/tree/master/module_name"
+	},
+	"bugs": {
+		"email": "1373653244@qq.com",
+		"url": "https://github.com/zhilidali/Node-demos/issues"
+	},
+```

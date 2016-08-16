@@ -1,15 +1,23 @@
 {
-  "name": "module_name",
-  "version": "1.0.0",
-  "description": "模块创建",
-  "main": "./lib/module_name.js",
-  "bin": "bin/module_name.js",
-  "scripts": {
-    "test": "node ./test/module_name.js"
-  },
-  "keywords": [
-    "模块"
-  ],
-  "author": "zhilidali",
-  "license": "MIT"
+	"name": "module_name",
+	"version": "1.0.0",
+	"description": "模块创建",
+	"main": "./lib/module_name.js",
+	"bin": "bin/module_name.js",
+	"scripts": {
+		"test": "node ./test/module_name.js"
+	},
+	"keywords": [
+		"模块"
+	],
+	"author": "zhilidali",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zhilidali/Node-demos/tree/master/module_name"
+	},
+	"bugs": {
+		"email": "1373653244@qq.com",
+		"url": "https://github.com/zhilidali/Node-demos/issues"
+	},
+	"license": "MIT"
 }
