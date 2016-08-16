@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "模块创建",
   "main": "./lib/module_name.js",
+  "bin": "bin/module_name.js",
   "scripts": {
-    "test": "node ./test/test_assert.js"
+    "test": "node ./test/module_name.js"
   },
   "keywords": [
     "模块"
   ],
   "author": "zhilidali",
-  "license": "ISC"
+  "license": "MIT"
 }
