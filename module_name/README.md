@@ -1,7 +1,7 @@
 #模块开发
 创建一个返回`Hello World`的hello()函数的module_name模块
-##1. $ npm init;
-##2. $ npm link;会将模块全局第安装在计算机上，模块名称采用package.json中给出的名称
+##1. `$ npm init`;
+##2. `$ npm link`;会将模块全局第安装在计算机上，模块名称采用package.json中给出的名称
 ##3. 添加主文件
 * `lib/module_name.js`
 * 更新package.json
@@ -51,3 +51,17 @@ console.log(module_name.hello());
 
 * `$ npm link`
 * `$ module_name`
+
+##6. 面向对象编程
+* lib/module_name.js
+
+```javascript
+module.exports = new Module_name();
+
+function Module_name(){}
+Module_name.prototype.hello = function(){
+	return "Hello World";
+};
+```
+
+* `$ npm test`
