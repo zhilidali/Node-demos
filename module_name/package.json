@@ -1,0 +1,14 @@
+{
+  "name": "module_name",
+  "version": "1.0.0",
+  "description": "模块创建",
+  "main": "./lib/module_name.js",
+  "scripts": {
+    "test": "node ./test/test_assert.js"
+  },
+  "keywords": [
+    "模块"
+  ],
+  "author": "zhilidali",
+  "license": "ISC"
+}
