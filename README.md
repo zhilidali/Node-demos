@@ -1,4 +1,4 @@
-0. [创建模块](module_name)
+0. [创建模块](//github.com/zhilidali/newmodule)
 1. [Socket.io](socket.io)
 2. [JSON API](JSON%20API)
 3. [Process进程模块](Process)
@@ -11,7 +11,6 @@
 	* 《Node.js入门经典》
 	* 《Node与Express开发》
 	* 《Node即学即用.pdf》
-	* 《Node.js实战》
 	* 《Node.js实战》
 	* 《深入浅出Node.js》
 
