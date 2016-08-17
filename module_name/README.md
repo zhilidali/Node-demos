@@ -77,3 +77,26 @@
 		"url": "https://github.com/zhilidali/Node-demos/issues"
 	},
 ```
+
+##8. Travis CI 基于云的分布式持续集成（Continuous Integration）服务器
+持续集成：每当代码库有变化时就会运行测试
+* 注册[Travis CI](http://travis-ci.org)，进入[profile](https://travis-ci.org/profile/zhilidali),打开开关
+* 项目中创建.yml文件(Yet Another Markup Language),告诉Travis CI要测试什么以及如何测试
+
+```yml
+	language: node_js
+	node_js:
+	 - 4
+```
+每次推送到GitHub时，Travis CI就会运行测试并报告是否有问题存在
+
+##9. 发布到npm registry
+工作方式：代码会被压缩到一个tar包，然后发送到npm注册库服务器保存
+创建注册库账户`$ npm adduser`
+发布模块`$ npm publish`
+更新版本`$ npm version 1.0.1`
+
+##10 通过其他地方公开模块
+* [Node.js Google Groups](http://groups/google.com/group/nodejs)
+* irc.freenode.net的#node.js通道上的IRC
+* 使用#nodejs井号标签在Twitter上发布
