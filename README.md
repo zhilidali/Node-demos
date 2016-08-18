@@ -1,9 +1,10 @@
-0. [创建模块](//github.com/zhilidali/newmodule)
+0. [模块的历程](//github.com/zhilidali/newmodule)
 1. [Socket.io](socket.io)
 2. [JSON API](JSON%20API)
 3. [Process进程模块](Process)
 4. [child_process子进程](child_process)
 5. [assert断言](assert)QA测试
+
 
 + ## 书单阅读：
 
@@ -17,10 +18,9 @@
 + ## Node 能够实时响应高并发请求的平台`I/O密集型`
 
 	* `DIRT程序`:数据密集型实时`data-intensive real-time`程序
-	* 采用事件驱动（用事件轮询）和非阻塞式异步I/O（异步式I/O 非阻塞式I/O）
 	* JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
+	* 采用事件驱动（用事件轮询）和非阻塞式异步I/O（异步式I/O 非阻塞式I/O）
 	* 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
-	* 路由是指向客户端提供它所发出的请求内容的机制
 
 + ## 调试
 
@@ -169,7 +169,7 @@
 			*	`process.cwd()`获取程序当前目录
 			*	`process.chdir('目录')`改变应用程序目录
 			*	`process.argv`命令行参数数组 ["node", "script.js", "--v"...]
-			*	`process.stdout`标准输出流process.stdout.write()
+			*	`process.stdout`标准输出流`process.stdout.write()`
 			*	`process.stdin`标准输入流
 			*	`process.stderr`标准错误流
 			*	`process.exit(code)`在程序内杀死进程，退出程序，code为返回的代码，默认为0
@@ -192,32 +192,32 @@
 
 			- #####	创建 Buffer 类
 
-				*	var buffer = new Buffer(10);//创建一个带有10个字节的新缓冲区
-				*	var buffer = new Buffer([10, 20, 30 ,40, 50]);
-				*	var buffer = new Buffer("github.com/zhilidali", "utf-8");
+				*	`var buffer = new Buffer(10);`创建一个带有10个字节的新缓冲区
+				*	`var buffer = new Buffer([10, 20, 30 ,40, 50]);`
+				*	`var buffer = new Buffer("github.com/zhilidali", "utf-8");`
 
 			- #####	语法
 
-				*	buffer.write(string[, offset[, length]][, encoding])//写入缓冲区
+				*	`buffer.write(string[, offset[, length]][, encoding])`写入缓冲区
 					*	`string`写入缓冲区的字符串
 					*	`offset`缓冲区开始写入的索引值，默认为0
 					*	`length`写入的字节数，默认为buffer.length
 					*	`encoding`使用的编码，默认为'utf-8'
 					*	`返回值`返回实际写入的大小，吐过buffer空间不足，则只会写入部分字符串
-				*	buffer.toString([encoding[, start[, end]]])//从缓冲区读取数据
+				*	`buffer.toString([encoding[, start[, end]]])`从缓冲区读取数据
 					*	`encoding`使用的编码，默认为utf8
 					*	`start`指定开始读取的索引位置，默认为0
 					*	`end`结束位置，默认为缓冲区的结尾
 					*	`返回值`解码缓冲区数据并使用指定的编码返回字符串
-				*	buffer.toJSON()//将 Buffer 转换为 JSON对象
-				*	Buffer.concat(list[, totaLength])//缓冲区合并
+				*	`buffer.toJSON()`将 Buffer 转换为 JSON对象
+				*	`Buffer.concat(list[, totaLength])`缓冲区合并
 					*	`list`用于合并的Buffer对象数组列表
 					*	`totalLength`指定合并后Buffer对象的总长度
 					*	返回一个多个成员合并的新 Buffer 对象
-				*	buffer.compare(otherBuffer)//缓冲区比较,返回一个数字
-				*	buffer.copy(bufferToCopyTo)//拷贝缓冲区，buffer是要被复制的Buffer对象
-				*	buffer.slice()//裁剪缓冲区
-				*	buffer.length//缓冲区长度
+				*	`buffer.compare(otherBuffer)`缓冲区比较,返回一个数字
+				*	`buffer.copy(bufferToCopyTo)`拷贝缓冲区，buffer是要被复制的Buffer对象
+				*	`buffer.slice()`裁剪缓冲区
+				*	`buffer.length`缓冲区长度
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
 
@@ -403,8 +403,8 @@
 
 	- ### `HTTP` 服务器与客户端
 
-		* `HTTP服务器`
-			1.`http.Server`一个基于事件的 HTTP 服务器
+		+ #### `HTTP服务器`
+			1. `http.Server`一个基于事件的 HTTP 服务器
 				* `request`客户端请求到来时，该事件被触发，
 					* 提供req和res参数，是http.ServerRequest和http.ServerResponse的实例，表示请求和相应信息
 					* http.createServer([requestListener]),是 http 的一个捷径
@@ -423,18 +423,18 @@
 
 				* `connection`当TCP连接建立时，该事件被触发，提供一个socket参数，为net.Socket的实例
 				* `close`当服务器关闭时，事件触发
-			2.`http.ServerRequest`HTTP 请求的信息
+			2. `http.ServerRequest`HTTP 请求的信息
 				`data`当请求到来时，该事件被触发，chunk参数表示接收到的数据
 				`end`当请求体数据传输完成时，该事件被触发
 				`close`用户当前请求结束时，该事件被触发
-			3.获取GET 请求内容
+			3. 获取GET 请求内容
 				通过url.parse手动解析路径中内容
-			4.获取Post 请求内容
-			5.`http.ServerResponse`返回给客户端的信息
+			4. 获取Post 请求内容
+			5. `http.ServerResponse`返回给客户端的信息
 				`response.writeHead(statusCode, [headers])`向请求的客户端发送响应头
 				`response.write(data, [encoding])`向请求的客户端发送响应内容
 				`response.end([data], [encoding])`结束响应，告知客户端所有发送已经完成
-		* `HTTP 客户端`
+		+ #### `HTTP 客户端`
 			* `http.request(options,callback)`发起HTTP请求，返回一个http.ClientResponse的实例
 				* `options`类关联数组对象
 					* `host`： 请求的域名或IP地址
@@ -495,27 +495,28 @@
 			* `var express = require('express');`
 			* `var app = express();`
 			* `app.get(path,function(req, res){})`根据请求路径来处理客户端发出的GET请求
+				路由是指向客户端提供它所发出的请求内容的机制
 				* 请求对象
-					*	req.params//包含 命名过的路由参数的数组
-					*	req.params(name)//返回命名的路由参数
-					*	req.query//一个对象，包含以键值对存放的查询字符串参数
-					*	req.body//一个对象
-					*	req.route//用于路由调试
-					*	req.cookies/req.singnedCookies
-					*	req.headers
-					*	req.accepts([types])
-					*	req.ip
-					*	req.path
-					*	req.xhr//如果请求由Ajax 发起将会返回true。
-					*	req.protocol
-					*	req.secure
-					*	req.url/req.originalUrl
-					*	req.acceptedLanguages
+					*	`req.params`包含 命名过的路由参数的数组
+					*	`req.params(name)`返回命名的路由参数
+					*	`req.query`一个对象，包含以键值对存放的查询字符串参数
+					*	`req.body`一个对象
+					*	`req.route`用于路由调试
+					*	`req.cookies`/`req.singnedCookies`
+					*	`req.headers`
+					*	`req.accepts([types])`
+					*	`req.ip`
+					*	`req.path`
+					*	`req.xhr`如果请求由Ajax 发起将会返回true。
+					*	`req.protocol`
+					*	`req.secure`
+					*	`req.url`/`req.originalUrl`
+					*	`req.acceptedLanguages`
 				* 响应对象
-					* res.status(code)
-					* res.set(name,value)
-					* res.cookie
-					* res.redirect([status],url)
+					* `res.status(code)`
+					* `res.set(name,value)`
+					* `res.cookie`
+					* `res.redirect([status],url)`
 						* 301永久移动
 						* 302
 						* 303 响应表单提交
@@ -620,12 +621,12 @@
 
 	- ### Template Engine 模板引擎//从页面模板根据一定规则生成 HTML工具
 
-		* 模板视图引擎 Jade、Handlebars、ejs
-			* ejs系统标签//Embedded JavaScript
-				* <% code %>//JS代码
-				* <%= code %>//显示替换过HEML特殊字符的内容
-				* <%- code %>//显示原始HTML内容
-			* Handlebars
+		* 模板视图引擎 `Jade`、`Handlebars`、`ejs`
+			* `ejs`系统标签//Embedded JavaScript
+				* `<% code %>`JS代码
+				* `<%= code %>`显示替换过HEML特殊字符的内容
+				* `<%- code %>`显示原始HTML内容
+			* `Handlebars`
 				* 上下文对象：渲染模板时传递给模板引擎的对象
 				* {{! 此处是注释}}
 				* 块级表达式: 提供了流程控制、条件执行和可扩展性
@@ -639,13 +640,13 @@
 
 	- ### 部署
 
-		* 云托管 平台即服务(Platform as a Server,Paas)
+		* 云托管 平台即服务(`Platform as a Server`,`Paas`)
 			云计算的基本思想：数据不是存储在自己硬件上，而是存储在别人硬件上
 		* `Heroku`
 
 	- ### 工具
 
-		* window命令行工具`Console2`
+		* windows命令行工具`Console2`
 		* Windows版的[cURL](https://curl.haxx.se/download.html) 找到Win32-Generic"区域
 			最好选择支持SSL和SSH功能的版本（如跳转另一页面，点击"Download WITHSUPPORT SSL"），
 			解压文件，将curl.exe放到PATH路径下或者用户目录
