@@ -1,17 +1,16 @@
-0. [模块的历程](//github.com/zhilidali/newmodule)
-1. [Socket.io](socket.io)
-2. [JSON API](JSON%20API)
-3. [Process进程模块](Process)
-4. [child_process子进程](child_process)
-5. [assert断言](assert)QA测试
-
+	0. [模块的历程](//github.com/zhilidali/newmodule)
+	1. [Socket.io](socket.io)
+	2. [JSON API](JSON%20API)
+	3. [Process进程模块](Process)
+	4. [child_process子进程](child_process)
+	5. [assert断言](assert)QA测试
 
 + ## 书单阅读：
 
 	* 《Node.js开发指南》
 	* 《Node.js入门经典》
 	* 《Node与Express开发》
-	* 《Node即学即用.pdf》
+	* 《Node即学即用》
 	* 《Node.js实战》
 	* 《深入浅出Node.js》
 
@@ -169,7 +168,7 @@
 			*	`process.cwd()`获取程序当前目录
 			*	`process.chdir('目录')`改变应用程序目录
 			*	`process.argv`命令行参数数组 ["node", "script.js", "--v"...]
-			*	`process.stdout`标准输出流`process.stdout.write()`
+			*	`process.stdout`标准输出流process.stdout.write()
 			*	`process.stdin`标准输入流
 			*	`process.stderr`标准错误流
 			*	`process.exit(code)`在程序内杀死进程，退出程序，code为返回的代码，默认为0
@@ -298,7 +297,7 @@
 					emitter.on('someEvent', function(arg1, arg2) {
 						console.log('listener2', arg1, arg2);
 					});
-					emitter.emit('someEvent', 'byvoid', 1991);//
+					emitter.emit('someEvent', 'byvoid', 1991);
 				```
 
 		*	error 事件
@@ -481,6 +480,8 @@
 			使服务器和浏览器可以推送数据，数据交换快
 		*	Socket.IO 提供通过WebSocket进行通信的一种简单方式
 
+	- ### `Connect`Node的"插件"库，创造了“中间件”`middleware`来描述插入式的Node模块
+
 	- ### `Express`Web 程序框架
 
 		* 使用 Scaffold脚手架 快速构建,生成套路化代码
@@ -497,26 +498,26 @@
 			* `app.get(path,function(req, res){})`根据请求路径来处理客户端发出的GET请求
 				路由是指向客户端提供它所发出的请求内容的机制
 				* 请求对象
-					*	`req.params`包含 命名过的路由参数的数组
-					*	`req.params(name)`返回命名的路由参数
-					*	`req.query`一个对象，包含以键值对存放的查询字符串参数
-					*	`req.body`一个对象
-					*	`req.route`用于路由调试
-					*	`req.cookies`/`req.singnedCookies`
-					*	`req.headers`
-					*	`req.accepts([types])`
-					*	`req.ip`
-					*	`req.path`
-					*	`req.xhr`如果请求由Ajax 发起将会返回true。
-					*	`req.protocol`
-					*	`req.secure`
-					*	`req.url`/`req.originalUrl`
-					*	`req.acceptedLanguages`
+					*	req.params//包含 命名过的路由参数的数组
+					*	req.params(name)//返回命名的路由参数
+					*	req.query//一个对象，包含以键值对存放的查询字符串参数
+					*	req.body//一个对象
+					*	req.route//用于路由调试
+					*	req.cookies/req.singnedCookies
+					*	req.headers
+					*	req.accepts([types])
+					*	req.ip
+					*	req.path
+					*	req.xhr//如果请求由Ajax 发起将会返回true。
+					*	req.protocol
+					*	req.secure
+					*	req.url/req.originalUrl
+					*	req.acceptedLanguages
 				* 响应对象
-					* `res.status(code)`
-					* `res.set(name,value)`
-					* `res.cookie`
-					* `res.redirect([status],url)`
+					* res.status(code)
+					* res.set(name,value)
+					* res.cookie
+					* res.redirect([status],url)
 						* 301永久移动
 						* 302
 						* 303 响应表单提交
@@ -547,6 +548,7 @@
 	- ### 调试
 
 	- ### 测试
+		单元测试和集成测试
 
 		* 无头浏览器`Selenium`、`PhantomJS` 和`Zombie`
 		* `Nodeunit`
