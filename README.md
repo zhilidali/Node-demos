@@ -405,8 +405,7 @@
 
 		+ #### `HTTP服务器`
 			1. `http.Server`一个基于事件的 HTTP 服务器
-				* `request`客户端请求到来时，该事件被触发，
-					* 提供req和res参数，是http.ServerRequest和http.ServerResponse的实例，表示请求和相应信息
+				* `request`客户端请求到来时，该事件被触发
 					* http.createServer([requestListener]),是 http 的一个捷径
 					* 功能是创建一个 HTTP 服务器并将requestListener 作为 request 事件的监听函数
 
@@ -498,23 +497,23 @@
 			* `var app = express();`
 			* `app.get(path,function(req, res){})`根据请求路径来处理客户端发出的GET请求
 				路由是指向客户端提供它所发出的请求内容的机制
-				* 请求对象
-					*	req.params//包含 命名过的路由参数的数组
-					*	req.params(name)//返回命名的路由参数
-					*	req.query//一个对象，包含以键值对存放的查询字符串参数
-					*	req.body//一个对象
-					*	req.route//用于路由调试
-					*	req.cookies/req.singnedCookies
-					*	req.headers
-					*	req.accepts([types])
-					*	req.ip
-					*	req.path
-					*	req.xhr//如果请求由Ajax 发起将会返回true。
-					*	req.protocol
-					*	req.secure
-					*	req.url/req.originalUrl
-					*	req.acceptedLanguages
-				* 响应对象
+				* 请求对象:Node核心对象`http.IncomingMessage`的示例
+					*	`req.params`包含 命名过的路由参数的数组
+					*	`req.params(name)`返回命名的路由参数
+					*	`req.query`对象，包含以键值对存放的查询字符串参数
+					*	`req.body`对象
+					*	`req.route`用于路由调试
+					*	`req.cookies/req.singnedCookies`
+					*	`req.headers`
+					*	`req.accepts([types])`
+					*	`req.ip`
+					*	`req.path`请求路径
+					*	`req.xhr`如果请求由Ajax 发起将会返回true。
+					*	`req.protocol`协议
+					*	`req.secure`
+					*	`req.url/req.originalUrl`
+					*	`req.acceptedLanguages`
+				* 响应对象:Node核心对象http.ServerResponse的实例
 					* res.status(code)
 					* res.set(name,value)
 					* res.cookie
