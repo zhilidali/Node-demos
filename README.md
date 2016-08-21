@@ -496,7 +496,7 @@
 			* `var express = require('express');`
 			* `var app = express();`
 			* `app.get(path,function(req, res){})`根据请求路径来处理客户端发出的GET请求
-				路由是指向客户端提供它所发出的请求内容的机制
+				Routing路由是指向客户端提供它所发出的请求内容的机制
 				* 请求对象:Node核心对象`http.IncomingMessage`的示例
 					*	`req.params`包含 命名过的路由参数的数组
 					*	`req.params(name)`返回命名的路由参数
@@ -521,7 +521,7 @@
 						* 301永久移动
 						* 302
 						* 303 响应表单提交
-			* `app.all()`可匹配所有HTTP动词，就是说可过滤所有路径的请求，如使用all函数定义中间件，就相当于所有请求都必须先通过此该中间件。
+			* `app.all()`可匹配所有HTTP动词，作用是对于一个路径上的所有请求加载中间件
 		* `app.use([path], function(req, res, next){});`
 			* `req.path`
 			* `req.query.参数名`
