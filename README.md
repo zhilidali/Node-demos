@@ -19,12 +19,12 @@
 
 	* `DIRT程序`:数据密集型实时`data-intensive real-time`程序
 	* JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
-	* 采用事件驱动（用事件轮询）和非阻塞式异步I/O（异步式I/O 非阻塞式I/O）
+	* 采用event-driven事件驱动（用事件轮询）和非阻塞式异步I/O（异步式I/O 非阻塞式I/O）
 	* 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
 
 + ## 调试
 
-	- ###	1. REPL: 交互式命令行解析器`Read-eval-print loop` 输入-求值-输出 循环
+	- ###	1. REPL: 交互式命令行解析器`Read-Evaluate-Print-Loop` 输入-求值-输出 循环
 
 		*	快捷键:
 			*	`ctrl + c` 退出当前终端。
@@ -34,7 +34,7 @@
 			*	`Tab`		列出当前命令
 		*	以`.`开头的元命令
 			*	`help`列出使用命令
-			*	`break` `clear`清除内存中任何变量或闭包，不需要重启解析器
+			*	`break` `clear`清除内存中任何变量或闭包，无需重启解析器
 			*	`exit`将退出Node解析器
 			*	`save filename`保存当前的 Node REPL 会话到指定文件
 			*	`load filename`载入当前 Node REPL 会话的文件内容。
@@ -220,6 +220,7 @@
 				*	`buffer.length`缓冲区长度
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
+			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
 
 	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
 
@@ -303,103 +304,40 @@
 
 		*	error 事件
 
-	- ### `fs`文件系统
-
-		*	`fs.writeFile(filename, data, callback)`写入文件
-		*	`fs.appendFile(filename, data, [encoding], [callback(err)]);`追加写入
-		*	`fs.exists(filename, [callback(exists)])`是否存在，回调唯一参数:文件是否存在的布尔值
-		*	`fs.rename(oldfile, newfile, [callback()])`修改名称
-		*	`fs.readFile(filename, [encoding], [callback(err, data)])`fs.readFileSync(filename, [encoding])
-		*	`fs.open(path, flags, [mode], [callback(err, fd)])`
-			*	`flags`
-				*	`r`	以读取模式打开文件。
-				*	`r+`	以读写模式打开文件。
-				*	`w`	以写入模式打开文件，如果文件不存在则创建。
-				*	`w+`	以读写模式打开文件，如果文件不存在则创建。
-				*	`a`	以追加模式打开文件，如果文件不存在则创建。
-				*	`a+`	以读取追加模式打开，如果文件不存在则创建。
-			*	`mode`参数用于创建文件时给文件指定权限，默认是 0666
-		*	`fs.read(fd, buffer, offset, length, position, [callback(err, byteRead, cuffer)])`指定的文件描述符 fd 中读取数据并写入 buffer 指向的缓冲区对象
-
 	- ### `url`
 
-		*	`url.parse("URL", boolean)`解析URL，返回一个json格式的数组
-		*	`url.format()`
-		*	`url.resolve()`
+		* `url.parse("URL", boolean)`解析URL，返回一个json格式的数组
+			{
+				href: '用来解析的原始完整URL',
+				protocol: '协议',
+				host: 'auth+hostname+port',
+				auth: '用户证书'
+				hostname: '主机名',
+				port: '端口',
+				pathname: '文件路径',
+				search: 'URL中HTTP GET 的参数',
+				query: 'parse第二个参数为true为对象，否则为字符串',
+				hash: '哈希值',
+			}
+		* `url.format()`
+		* `url.resolve()`
 
 	- ### `path`
 
-		`path.normalize()`
-		`path.join()`
-		`path.dirname()`
-		`path.basename()`
-		`path.extname()`
+		`path.normalize()`将不规范的路径格式化为标准路径
+		`path.join()`组合路径
+		`path.dirname()`返回路径中的目录名
+		`path.basename()`可返回路径中的最后一部分
+		`path.extname()`返回路径中文件的扩展名
 
 	- ### `querystring`
 
+		`querystring.parse()`解析query字符串,数字是返回成字符串
+		`querystring.decode()`输入的key-value格式的对象转换成query字符串的格式
 		`querystring.stringify()`
-		`querystring.parse()`
-
-	- ### `child_process` 子进程
-
-		*	场景：
-			*	复杂等式计算
-			*	使用位于node外部的基于系统工具操作数据
-			*	执行资源密集型或花费大量时间来完成的操作
-			*	执行清理操作
-
-		1. `spawn()` 使用系统命令 启动一个子进程来执行命令
-			* Command想要运行的命令
-			* Arguments传递给命令的任何参数
-			* options诸如工作目录和环境变量这样的东西
-
-				```javascript
-					var spawn = require('child_process').spawn;
-					var ping = spawn('ping', [bbc.co.uk]);//生成ping工具的子进程
-					ping.stdout.setEncoding('utf8');
-					//对子进程侦听，处理从标准输出接收到的数据
-					ping.stdout.on('data', function(data) {
-						console.log(data);
-					});
-					//父进程可侦听子进程的退出事件并做一些处理
-					ping.on('exit', function(code, signal) {
-						console.log('子进程被'+signal+'信号杀死');
-					});
-					ping.kill("SIGINT");//从父进程发送kill信号给子进程
-				```
-
-		2. `exec()`
-		3. `execFile()`启动一个子进程来执行可执行文件
-		4. `fork()` 与子进程通信 //创建一个也是Node.js进程的子进程，并提供父子进程通信能力
-			* 父Node程序
-
-				```javascript
-					var fork = require('child_process').fork;
-					var child = fork(__dirname + '/child.js');
-					child.on('message', function(m) {
-						//在父进程侦听消息进行处理
-					});
-					child.send({message: 'Hello child'});//从父进程发送消息给子进程
-				```
-
-			* child.js程序
-
-				```javascript
-					process.on('message', function(m) {
-						//在子进程侦听消息进行处理
-					});
-					process.send({message: "Hello parent"});
-				```
-
-	- ### `Cluster` 集群
-
-		```javascript
-			var cluster = require('cluster');
-			cluster.fork();
-			cluster.on('death', function(){
-				console.log('子进程'+worker.pid+'死掉')
-			})
-		```
+		`querystring.escape()`
+		`querystring.unescape()`
+		`querystring.unescapeBuffer()`
 
 	- ### `HTTP` 服务器与客户端
 
@@ -464,6 +402,85 @@
 			```
 
 		Readable 可读流
+
+	- ### `fs`文件系统
+
+		*	`fs.writeFile(filename, data, callback)`写入文件
+		*	`fs.appendFile(filename, data, [encoding], [callback(err)]);`追加写入
+		*	`fs.exists(filename, [callback(exists)])`是否存在，回调唯一参数:文件是否存在的布尔值
+		*	`fs.rename(oldfile, newfile, [callback()])`修改名称
+		*	`fs.readFile(filename, [encoding], [callback(err, data)])`fs.readFileSync(filename, [encoding])
+		*	`fs.open(path, flags, [mode], [callback(err, fd)])`
+			*	`flags`
+				*	`r`	以读取模式打开文件。
+				*	`r+`	以读写模式打开文件。
+				*	`w`	以写入模式打开文件，如果文件不存在则创建。
+				*	`w+`	以读写模式打开文件，如果文件不存在则创建。
+				*	`a`	以追加模式打开文件，如果文件不存在则创建。
+				*	`a+`	以读取追加模式打开，如果文件不存在则创建。
+			*	`mode`参数用于创建文件时给文件指定权限，默认是 0666
+		*	`fs.read(fd, buffer, offset, length, position, [callback(err, byteRead, cuffer)])`指定的文件描述符 fd 中读取数据并写入 buffer 指向的缓冲区对象
+
+	- ### `child_process` 子进程
+
+		*	场景：
+			*	复杂等式计算
+			*	使用位于node外部的基于系统工具操作数据
+			*	执行资源密集型或花费大量时间来完成的操作
+			*	执行清理操作
+
+		1. `spawn()` 使用系统命令 启动一个子进程来执行命令
+			* Command想要运行的命令
+			* Arguments传递给命令的任何参数
+			* options诸如工作目录和环境变量这样的东西
+
+				```javascript
+					var spawn = require('child_process').spawn;
+					var ping = spawn('ping', [bbc.co.uk]);//生成ping工具的子进程
+					ping.stdout.setEncoding('utf8');
+					//对子进程侦听，处理从标准输出接收到的数据
+					ping.stdout.on('data', function(data) {
+						console.log(data);
+					});
+					//父进程可侦听子进程的退出事件并做一些处理
+					ping.on('exit', function(code, signal) {
+						console.log('子进程被'+signal+'信号杀死');
+					});
+					ping.kill("SIGINT");//从父进程发送kill信号给子进程
+				```
+
+		2. `exec()`
+		3. `execFile()`启动一个子进程来执行可执行文件
+		4. `fork()` 与子进程通信 //创建一个也是Node.js进程的子进程，并提供父子进程通信能力
+			* 父Node程序
+
+				```javascript
+					var fork = require('child_process').fork;
+					var child = fork(__dirname + '/child.js');
+					child.on('message', function(m) {
+						//在父进程侦听消息进行处理
+					});
+					child.send({message: 'Hello child'});//从父进程发送消息给子进程
+				```
+
+			* child.js程序
+
+				```javascript
+					process.on('message', function(m) {
+						//在子进程侦听消息进行处理
+					});
+					process.send({message: "Hello parent"});
+				```
+
+	- ### `Cluster` 集群
+
+		```javascript
+			var cluster = require('cluster');
+			cluster.fork();
+			cluster.on('death', function(){
+				console.log('子进程'+worker.pid+'死掉')
+			})
+		```
 
 	- ### `assert`断言
 
