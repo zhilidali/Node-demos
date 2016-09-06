@@ -108,7 +108,7 @@
 			* `bin`存放可执行二进制文件
 			* `lib`存放JS代码
 			* `doc`存放目录
-			***
+			* 
 			* `test`存放单元测试用例的代码
 			* `examples`存放如何使用模块的实际示例目录
 			* `man`存放模块的任何手册页目录
@@ -293,11 +293,11 @@
 			2. 从文件读取数据
 			3. 从数据库返回数据
 		*	events.EventEmitter//事件发射与事件监听功能的封装
-			*	EventEmitter.on(event, listener)//为指定事件注册一个监听器
-			*	EventEmitter.emit(event, [arg1], [arg2], [...])//发射事件
-			*	EventEmitter.once(event, listener)//为指定事件注册一个单次监听器
-			*	EventEmitter.removeListener(event, listener)//移除指定事件的某个监听器
-			*	EventEmitter.removeAllListener([event]);//移除[所有]事件的所有监听器
+			* `EventEmitter.on(event, listener)`	为指定事件注册一个监听器
+			* `EventEmitter.emit(event, [arg1], [arg2], [...])`	发射事件
+			* `EventEmitter.once(event, listener)`	为指定事件注册一个单次监听器
+			* `EventEmitter.removeListener(event, listener)`	移除指定事件的某个监听器
+			* `EventEmitter.removeAllListener([event]);`	移除[所有]事件的所有监听器
 
 				```javascript
 					var EventEmitter = require('events').EventEmitter;
