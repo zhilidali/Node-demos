@@ -18,21 +18,26 @@
 + ## Node 能够实时响应高并发请求的平台`I/O密集型`
 
 	* `DIRT程序`:数据密集型实时`data-intensive real-time`程序
-	* JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
-	* 采用event-driven事件驱动（用事件轮询）和非阻塞式异步I/O（异步式I/O 非阻塞式I/O）
-	* 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
+	* 采用event-driven事件驱动（用事件轮询）和非阻塞式异步I/O
+		* JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
+		* 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
 
 + ## 调试
 
+	- `$ node -e 'console.log("Hello World")';`
+
 	- ###	1. REPL: 交互式命令行解析器`Read-Evaluate-Print-Loop` 输入-求值-输出 循环
 
-		*	快捷键:
+		* 参数
+			* `$ node --use_strict;`严格模式下运行
+			* `_`表示上一个命令执行的结果
+		* 快捷键
 			*	`ctrl + c` 退出当前终端。
 			*	`ctrl + c` 按下两次 - 退出解析器
 			*	`ctrl + d` 退出Node REPL
 			*	`向上/向下`查看输入的历史命令
 			*	`Tab`		列出当前命令
-		*	以`.`开头的元命令
+		* 以`.`开头的元命令
 			*	`help`列出使用命令
 			*	`break` `clear`清除内存中任何变量或闭包，无需重启解析器
 			*	`exit`将退出Node解析器
@@ -156,6 +161,7 @@
 
 + ## Node.js核心模块
 
+	* 核心模块源码都在Node的lib子目录中
 	- ### Global Object全局对象：`global`全局变量的宿主
 
 		+	全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
@@ -221,6 +227,8 @@
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
 			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
+		* setTimeout/clearTimeout、setInterval/clearInterval、require()
+		* `__filename` 当前文件名、`__dirname` 当前文件所在目录
 
 	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
 
@@ -371,6 +379,7 @@
 				`response.writeHead(statusCode, [headers])`向请求的客户端发送响应头
 				`response.write(data, [encoding])`向请求的客户端发送响应内容
 				`response.end([data], [encoding])`结束响应，告知客户端所有发送已经完成
+
 		+ #### `HTTP 客户端`
 			* `http.request(options,callback)`发起HTTP请求，返回一个http.ClientResponse的实例
 				* `options`类关联数组对象
@@ -423,7 +432,8 @@
 
 	- ### `child_process` 子进程
 
-		*	场景：
+		* 子进程结束后，主进程通过回调取得结果
+		* 场景：
 			*	复杂等式计算
 			*	使用位于node外部的基于系统工具操作数据
 			*	执行资源密集型或花费大量时间来完成的操作
@@ -449,9 +459,33 @@
 					ping.kill("SIGINT");//从父进程发送kill信号给子进程
 				```
 
-		2. `exec()`
+		2. `exec()`('要执行的shell命令', callback)/execSync()
+
+			```javascript
+				var exec = require('child_process').exec;
+				var ls = exec('ls -l', function(err,stdout,stderr){
+					if(err){
+						console.log(err.stack);
+						console.log(err.code);
+					}
+					console.log(stdout);
+				});
+
+				var child = exec('ls -l');
+				child.stdout.on('data', function(data) {
+				console.log('stdout: ' + data);
+				});
+				child.stderr.on('data', function(data) {
+				console.log('stdout: ' + data);
+				});
+				child.on('close', function(code) {
+				console.log('closing code: ' + code);
+				});
+			```
+
 		3. `execFile()`启动一个子进程来执行可执行文件
 		4. `fork()` 与子进程通信 //创建一个也是Node.js进程的子进程，并提供父子进程通信能力
+			* send()
 			* 父Node程序
 
 				```javascript
@@ -484,10 +518,17 @@
 
 	- ### `assert`断言
 
-		`var assert = require('assert');`
-		* assert.equal(a, b "异常抛出时显示可选");
-		* assert.Equal();
+		* 表达式不符合，抛出错误
+		* var assert = require('assert');
+		* assert(value,message);//value对应的布尔值为false，抛出错误
+		* assert.ok();//同上
+		* assert.equal(a, b [,"异常抛出时显示可选"]);
+		* assert.notEual()
 		* assert.strictEqual();
+		* assert.notStrictEqual()
+		* assert.deepEqual(obj1,obj2);对应键值对相等
+		* assert.notDeepEqual(obj1,obj2);
+		* assert.throws()/assert.doesNotThrow()/assert.ifError()/assert.fail()
 
 + ## Node.js重要扩展模块
 
@@ -559,6 +600,15 @@
 	- [Request]('http://github.com/mikeal/request');
 	- [Optimist]('http://github.com/substack/node-optimist');
 	- Chai 断言库
+	- nvm
+		* $ nvm install node;安装最新版本node
+		* $ nvm install 4.5;指定版本
+		* $ nvm use node;用最新版本
+		* $ nvm use 4.5;
+
+		* $ nvm ls;查看本地安装的所有版本
+		* $ nvm ls-remote;查看服务器上所有可供安装的版本。
+		* $ nvm deactivate;退出已经激活的nvm，使用deactivate命令
 
 + ## 知识点
 
