@@ -187,7 +187,7 @@
 					* `SET SOMETHING='12345';`Window
 					* `export SOMETHING='123456'`UNIX
 
-		+ ####`Buffer` 缓冲区：处理二进制数据的方式，对原始内存的分配
+		+ #### `Buffer` 缓冲区：处理二进制数据的方式，对原始内存的分配
 			- 全局变量类型，是一个比较罕见的不需要 require('buffer') 就可以使用的类
 
 			- #####示例场景
@@ -228,8 +228,8 @@
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
 			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
-		* #### setTimeout/clearTimeout、setInterval/clearInterval、require()
-		* #### `__filename` 当前文件名、`__dirname` 当前文件所在目录
+		+ #### setTimeout/clearTimeout、setInterval/clearInterval、require()
+		+ #### `__filename` 当前文件名、`__dirname` 当前文件所在目录
 
 	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
 
@@ -319,16 +319,16 @@
 
 			```json
 				{
-					href: '用来解析的原始完整URL',
-					protocol: '协议',
-					host: 'auth+hostname+port',
-					auth: '用户证书'
-					hostname: '主机名',
-					port: '端口',
-					pathname: '文件路径',
-					search: 'URL中HTTP GET 的参数',
-					query: 'parse第二个参数为true为对象，否则为字符串',
-					hash: '哈希值',
+					"href": "用来解析的原始完整URL",
+					"protocol": "协议",
+					"host": "auth+hostname+port",
+					"auth": "用户证书",
+					"hostname": "主机名",
+					"port": "端口",
+					"pathname": "文件路径",
+					"search": "URL中HTTP GET 的参数",
+					"query": "parse第二个参数为true为对象，否则为字符串",
+					"hash": "哈希值",
 				}
 			```
 		* `url.format()`
@@ -605,13 +605,13 @@
 	- [Optimist](http://github.com/substack/node-optimist);
 	- Chai 断言库
 	- nvm
-		* $ nvm install node;安装最新版本node
-		* $ nvm install 4.5;指定版本
-		* $ nvm use node;用最新版本
-		* $ nvm use 4.5;
-		* $ nvm ls;查看本地安装的所有版本
-		* $ nvm ls-remote;查看服务器上所有可供安装的版本。
-		* $ nvm deactivate;退出已经激活的nvm，使用deactivate命令
+		* `$ nvm install node;`安装最新版本node
+		* `$ nvm install 4.5;`指定版本
+		* `$ nvm use node;`用最新版本
+		* `$ nvm use 4.5;`
+		* `$ nvm ls;`查看本地安装的所有版本
+		* `$ nvm ls-remote;`查看服务器上所有可供安装的版本。
+		* `$ nvm deactivate;`退出已经激活的nvm，使用deactivate命令
 
 + ## 知识点
 
