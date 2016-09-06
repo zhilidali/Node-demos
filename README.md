@@ -26,66 +26,66 @@
 
 	- `$ node -e 'console.log("Hello World")';`
 
-	- ###	1. REPL: 交互式命令行解析器`Read-Evaluate-Print-Loop` 输入-求值-输出 循环
+	- ### 1. REPL: 交互式命令行解析器`Read-Evaluate-Print-Loop` 输入-求值-输出 循环
 
 		* 参数
 			* `$ node --use_strict;`严格模式下运行
 			* `_`表示上一个命令执行的结果
 		* 快捷键
-			*	`ctrl + c` 退出当前终端。
-			*	`ctrl + c` 按下两次 - 退出解析器
-			*	`ctrl + d` 退出Node REPL
-			*	`向上/向下`查看输入的历史命令
-			*	`Tab`		列出当前命令
+			* `ctrl + c` 退出当前终端。
+			* `ctrl + c` 按下两次 - 退出解析器
+			* `ctrl + d` 退出Node REPL
+			* `向上/向下`查看输入的历史命令
+			* `Tab`		列出当前命令
 		* 以`.`开头的元命令
-			*	`help`列出使用命令
-			*	`break` `clear`清除内存中任何变量或闭包，无需重启解析器
-			*	`exit`将退出Node解析器
-			*	`save filename`保存当前的 Node REPL 会话到指定文件
-			*	`load filename`载入当前 Node REPL 会话的文件内容。
+			* `help`列出使用命令
+			* `break` `clear`清除内存中任何变量或闭包，无需重启解析器
+			* `exit`将退出Node解析器
+			* `save filename`保存当前的 Node REPL 会话到指定文件
+			* `load filename`载入当前 Node REPL 会话的文件内容。
 
 	- ###2. Node调试器：
 
-		*	设置断点debugger，运行 `$ node debug app;`
-		*	`cont`继续执行
-		*	`repl`启动REPL,允许查看变量值和执行代码
-		*	`next,n`下一步：跳到下一个语句
-		*	`step,s`步入：如果是函数就进入当前执行函数中语句，否则跳过
-		*	`out,o`步出：跳出当前执行函数
-		*	`backtrace`显示当前调用执行帧或调用栈
-		*	`watch(expr)`向观察列表中添加表达式，这样在调试器中进入函数或者移动时会显示出来。
-		*	`list(n)`列出调试器中当前停止行的前面和后面的n行代码。
+		* 设置断点debugger，运行 `$ node debug app;`
+		* `cont`继续执行
+		* `repl`启动REPL,允许查看变量值和执行代码
+		* `next,n`下一步：跳到下一个语句
+		* `step,s`步入：如果是函数就进入当前执行函数中语句，否则跳过
+		* `out,o`步出：跳出当前执行函数
+		* `backtrace`显示当前调用执行帧或调用栈
+		* `watch(expr)`向观察列表中添加表达式，这样在调试器中进入函数或者移动时会显示出来。
+		* `list(n)`列出调试器中当前停止行的前面和后面的n行代码。
 
 	- ###3. Node探查器：Inspector：`$ npm install -g inspector`
 
-		1.	用`--debug`或 `--debug-brk`的标志启动应用程序，以调试模式运行
-		2.	另一终端运行 `$ node-inspector&`
-		3.	Webkit浏览器打开 http://127.0.0.1:8080/?port=5858
+		1. 用`--debug`或 `--debug-brk`的标志启动应用程序，以调试模式运行
+		2. 另一终端运行 `$ node-inspector&`
+		3. Webkit浏览器打开 http://127.0.0.1:8080/?port=5858
 
 + ## CommonJS 模块规范与Node模块的实现
 
 	- ### Node模块机制
 
 		1. 模块定义
-			*	exports 对象用于导出当前模块的方法或变量
-			*	module 对象，代表模块自身，exports 是 module 的属性
-			*	在Node 中，一个文件就是一个模块
+			* exports 对象用于导出当前模块的方法或变量
+			* module 对象，代表模块自身，exports 是 module 的属性
+			* 在Node 中，一个文件就是一个模块
 		2. 模块标识:传递给`require()`的参数，小驼峰命名
 		3. 模块引用：核心模块，文件模块
 			**`require()`方法接受模块标识，以此引入一个模块的API到当前上下文中**
 			* `路径分析`模块标识符分析 模块路径
-				*	`核心模块`优先级仅次于缓存加载，加载过程最快
-				*	`路径形式文件模块`.或..开始的相对路径、以`/`开始的绝对路径速，度慢于核心模块
-				*	`非路径形式的文件模块`
+				* `核心模块`优先级仅次于缓存加载，加载过程最快
+				* `路径形式文件模块`.或..开始的相对路径、以`/`开始的绝对路径速，度慢于核心模块
+				* `非路径形式的文件模块`
 			* `文件定位`
 				1.文件扩展名分析 .js .json .node
 				2.目录分析和包
 			* `编译执行`
-				*	`.js文件`通过fs模块同步读取后编译执行，头尾包装
-					*	`(function (exports, require, module, __filename, __dirname) {\n, \n});`
-				*	`.node文件`用C/C++编写的扩展文件，通过dlopen()方法加载最后编译成生成的文件
-				*		`json文件`通过fs模块同步读取后，用JSON.parse()解析
-				*		`.其他扩展名文件`都被当做.js文件载入
+				* `.js文件`通过fs模块同步读取后编译执行，头尾包装
+					* `(function (exports, require, module, __filename, __dirname) {\n, \n});`
+				* `.node文件`用C/C++编写的扩展文件，通过dlopen()方法加载最后编译成生成的文件
+				* `json文件`通过fs模块同步读取后，用JSON.parse()解析
+				*  `.其他扩展名文件`都被当做.js文件载入
 
  	- ### AMD规范
 
@@ -103,88 +103,89 @@
 
 	- ### `包结构`组织包中各种文件
 
-		*	一个存档文件，即一个目录直接打包为.zip或tar.gz格式的文件，安装后解压还原为目录
-			*	`package.json`包描述文件
-			*	`bin`存放可执行二进制文件
-			*	`lib`存放JS代码
-			*	`doc`存放目录
-			*	`test`存放单元测试用例的代码
-			*	`examples`存放如何使用模块的实际示例目录
-			*	`man`存放模块的任何手册页目录
-			*	`src`存放源文件的文件夹，常用于CoffeeScript文件
-			*	`.gitignore`从Git库忽略的文件清单
-			*	`.npmignore`在npm注册库忽略的文件清单
-			*	`LICENSE`模块授权文件
-			*	`README.md
+		* 一个存档文件，即一个目录直接打包为.zip或tar.gz格式的文件，安装后解压还原为目录
+			* `package.json`包描述文件
+			* `bin`存放可执行二进制文件
+			* `lib`存放JS代码
+			* `doc`存放目录
+			***
+			* `test`存放单元测试用例的代码
+			* `examples`存放如何使用模块的实际示例目录
+			* `man`存放模块的任何手册页目录
+			* `src`存放源文件的文件夹，常用于CoffeeScript文件
+			* `.gitignore`从Git库忽略的文件清单
+			* `.npmignore`在npm注册库忽略的文件清单
+			* `LICENSE`模块授权文件
+			* `README.md
 
 	- ### 模块开发
 
-		* #### 创建一个返回`Hello World`的hello()函数的module_name模块
+		* 创建一个返回`Hello World`的hello()函数的module_name模块
 
-			1. `$ npm init;`
-			2. `$ npm link;`会将模块全局安装,模块名称采用package.json中给出的名称
-			3. 添加主文件`lib/module_name.js`
+		1. `$ npm init;`
+		2. `$ npm link;`会将模块全局安装,模块名称采用package.json中给出的名称
+		3. 添加主文件`lib/module_name.js`
 
-				```javascript
-					exports.hello = function() {
-					return "Hello World";
-					};
-				```
-				*	更新package.json
+			```javascript
+				exports.hello = function() {
+				return "Hello World";
+				};
+			```
+			*	更新package.json
 
-				```json
-					"main": "./lib/module_name.js
-				```
+			```json
+				"main": "./lib/module_name.js
+			```
 
-			4.	`test/test_assert.js`
+		4. `test/test_assert.js`
 
-				```javascript
-					var assert = require('assert');
-					var module_name = require('../lib/module_name.js');
+			```javascript
+				var assert = require('assert');
+				var module_name = require('../lib/module_name.js');
 
-					/*
-					* 测试hello()是否返回正确的字符串
-					*/
-					assert.equal(
-					module_name.hello(),
-					"Hello World",
-					"期待： 'Hello World',得到： "+ module_name.hello()
-					);
-				```
-				*	更新packages.json，`$ npm test;`,
+				/*
+				* 测试hello()是否返回正确的字符串
+				*/
+				assert.equal(
+				module_name.hello(),
+				"Hello World",
+				"期待： 'Hello World',得到： "+ module_name.hello()
+				);
+			```
+			* 更新packages.json，`$ npm test;`,
 
-				```json
-							"script": {
-							"test": "node ./test/test_assert.js"
-							}
-				```
+			```json
+				"script": {
+				"test": "node ./test/test_assert.js"
+				}
+			```
 
 + ## Node.js核心模块
 
 	* 核心模块源码都在Node的lib子目录中
 	- ### Global Object全局对象：`global`全局变量的宿主
 
-		+	全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
+		+ 全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
 
 		+ ####`console`用于提供控制台标准输出
 
-			*	`console.log()`向标准输出流打印字符并以换行符结束
-			*	`console.error()`向标准错误流...
-			*	`console.trace()`向标准错误流输出当前的调用栈
+			* `console.log()`向标准输出流打印字符并以换行符结束
+			* `console.error()`向标准错误流...
+			* `console.trace()`向标准错误流输出当前的调用栈
 		+ ####`process` 进程:描述当前Node.js进程状态的对象，提供了一个与操作系统的简单接口
-			*	`process.cwd()`获取程序当前目录
-			*	`process.chdir('目录')`改变应用程序目录
-			*	`process.argv`命令行参数数组 ["node", "script.js", "--v"...]
-			*	`process.stdout`标准输出流process.stdout.write()
-			*	`process.stdin`标准输入流
-			*	`process.stderr`标准错误流
-			*	`process.exit(code)`在程序内杀死进程，退出程序，code为返回的代码，默认为0
-			*	`process.on()`监听事件进程 "exit","uncaughtException","SIGINT"
-			*	`process.nextTick(callback)`为事件循环设置一项任务
-			*	`process.env.SOMETHING`
-				*	设置环境变量
-					*	`SET SOMETHING='12345';`Window
-					*	`export SOMETHING='123456'`UNIX
+			* `process.cwd()`获取程序当前目录
+			* `process.chdir('目录')`改变应用程序目录
+			* `process.argv`命令行参数数组 ["node", "script.js", "--v"...]
+			* `process.stdout`标准输出流process.stdout.write()
+			* `process.stdin`标准输入流
+			* `process.stderr`标准错误流
+			* `process.exit(code)`在程序内杀死进程，退出程序，code为返回的代码，默认为0
+			* `process.on()`监听事件进程 "exit","uncaughtException","SIGINT"
+			* `process.nextTick(callback)`为事件循环设置一项任务
+			* `process.env.SOMETHING`
+				* 设置环境变量
+					* `SET SOMETHING='12345';`Window
+					* `export SOMETHING='123456'`UNIX
 
 		+ ####`Buffer` 缓冲区：处理二进制数据的方式，对原始内存的分配
 			- 全局变量类型，是一个比较罕见的不需要 require('buffer') 就可以使用的类
@@ -227,12 +228,12 @@
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
 			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
-		* setTimeout/clearTimeout、setInterval/clearInterval、require()
-		* `__filename` 当前文件名、`__dirname` 当前文件所在目录
+		* #### setTimeout/clearTimeout、setInterval/clearInterval、require()
+		* #### `__filename` 当前文件名、`__dirname` 当前文件所在目录
 
 	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
 
-		*	util.inherits(constructor, superConstrctor)//实现对象间原型继承
+		*	`util.inherits(constructor, superConstrctor)`实现对象间原型继承
 
 			```javascript
 				var util = require('util');//引用模块
@@ -262,7 +263,7 @@
 				console.log(objSub);//{ name: 'sub'}
 			```
 
-		*	util.inspect(object, [showHidden], [depth], [colors])//将任意对象转换为字符串，常用于调试和错误输出
+		*	`util.inspect(object, [showHidden], [depth], [colors])`将任意对象转换为字符串，常用于调试和错误输出
 			*	showHidden：true将会输出更多隐藏信息
 			*	depth：最大递归层数，如果不指定depth，默认递归2层，指定为 null 表示将不限递归层数完整遍历对象。
 			*	如果color 值为 true，输出格式将会以 ANSI 颜色编码，通常用于在终端显示更漂亮的效果。
@@ -315,37 +316,40 @@
 	- ### `url`
 
 		* `url.parse("URL", boolean)`解析URL，返回一个json格式的数组
-			{
-				href: '用来解析的原始完整URL',
-				protocol: '协议',
-				host: 'auth+hostname+port',
-				auth: '用户证书'
-				hostname: '主机名',
-				port: '端口',
-				pathname: '文件路径',
-				search: 'URL中HTTP GET 的参数',
-				query: 'parse第二个参数为true为对象，否则为字符串',
-				hash: '哈希值',
-			}
+
+			```json
+				{
+					href: '用来解析的原始完整URL',
+					protocol: '协议',
+					host: 'auth+hostname+port',
+					auth: '用户证书'
+					hostname: '主机名',
+					port: '端口',
+					pathname: '文件路径',
+					search: 'URL中HTTP GET 的参数',
+					query: 'parse第二个参数为true为对象，否则为字符串',
+					hash: '哈希值',
+				}
+			```
 		* `url.format()`
 		* `url.resolve()`
 
 	- ### `path`
 
-		`path.normalize()`将不规范的路径格式化为标准路径
-		`path.join()`组合路径
-		`path.dirname()`返回路径中的目录名
-		`path.basename()`可返回路径中的最后一部分
-		`path.extname()`返回路径中文件的扩展名
+		* `path.normalize()`将不规范的路径格式化为标准路径
+		* `path.join()`组合路径
+		* `path.dirname()`返回路径中的目录名
+		* `path.basename()`可返回路径中的最后一部分
+		* `path.extname()`返回路径中文件的扩展名
 
 	- ### `querystring`
 
-		`querystring.parse()`解析query字符串,数字是返回成字符串
-		`querystring.decode()`输入的key-value格式的对象转换成query字符串的格式
-		`querystring.stringify()`
-		`querystring.escape()`
-		`querystring.unescape()`
-		`querystring.unescapeBuffer()`
+		* `querystring.parse()`解析query字符串,数字是返回成字符串
+		* `querystring.decode()`输入的key-value格式的对象转换成query字符串的格式
+		* `querystring.stringify()`
+		* `querystring.escape()`
+		* `querystring.unescape()`
+		* `querystring.unescapeBuffer()`
 
 	- ### `HTTP` 服务器与客户端
 
@@ -376,9 +380,9 @@
 				通过url.parse手动解析路径中内容
 			4. 获取Post 请求内容
 			5. `http.ServerResponse`返回给客户端的信息
-				`response.writeHead(statusCode, [headers])`向请求的客户端发送响应头
-				`response.write(data, [encoding])`向请求的客户端发送响应内容
-				`response.end([data], [encoding])`结束响应，告知客户端所有发送已经完成
+				* `response.writeHead(statusCode, [headers])`向请求的客户端发送响应头
+				* `response.write(data, [encoding])`向请求的客户端发送响应内容
+				* `response.end([data], [encoding])`结束响应，告知客户端所有发送已经完成
 
 		+ #### `HTTP 客户端`
 			* `http.request(options,callback)`发起HTTP请求，返回一个http.ClientResponse的实例
@@ -459,7 +463,7 @@
 					ping.kill("SIGINT");//从父进程发送kill信号给子进程
 				```
 
-		2. `exec()`('要执行的shell命令', callback)/execSync()
+		2. `exec('要执行的shell命令', callback)/execSync()`
 
 			```javascript
 				var exec = require('child_process').exec;
@@ -596,16 +600,15 @@
 			});
 		```
 
-	- [CoffeScript]('http://github.com/jashkenas/coffee-script');
-	- [Request]('http://github.com/mikeal/request');
-	- [Optimist]('http://github.com/substack/node-optimist');
+	- [CoffeScript](http://github.com/jashkenas/coffee-script);
+	- [Request](http://github.com/mikeal/request);
+	- [Optimist](http://github.com/substack/node-optimist);
 	- Chai 断言库
 	- nvm
 		* $ nvm install node;安装最新版本node
 		* $ nvm install 4.5;指定版本
 		* $ nvm use node;用最新版本
 		* $ nvm use 4.5;
-
 		* $ nvm ls;查看本地安装的所有版本
 		* $ nvm ls-remote;查看服务器上所有可供安装的版本。
 		* $ nvm deactivate;退出已经激活的nvm，使用deactivate命令
