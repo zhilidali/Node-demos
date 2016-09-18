@@ -2,7 +2,7 @@
 
 ```javascript
 	var assert = require('assert');
-	assert.equal(a, b "异常抛出时显示可选");
+	assert.equal(a, b, "异常抛出时显示可选");
 	assert.Equal();
 	assert.strictEqual();
 ```
@@ -26,7 +26,7 @@ Vows用平白语句描述功能
 
 ```javascript
 	var vows = require('vows'),
-	assert = require('assert');
+		assert = require('assert');
 
 	vows.describe('比较字符串').addBatch({//Description
 		'当字符串相等时': {//Context

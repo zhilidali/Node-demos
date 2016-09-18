@@ -14,6 +14,7 @@
 	* 《Node即学即用》
 	* 《Node.js实战》
 	* 《深入浅出Node.js》
+	* 《Node.js项目实战：构建可扩展的Web应用》
 
 + ## Node 能够实时响应高并发请求的平台`I/O密集型`
 
@@ -47,7 +48,6 @@
 	- ###2. Node调试器：
 
 		* 设置断点debugger，运行 `$ node debug app;`
-		* `cont`继续执行
 		* `repl`启动REPL,允许查看变量值和执行代码
 		* `next,n`下一步：跳到下一个语句
 		* `step,s`步入：如果是函数就进入当前执行函数中语句，否则跳过
@@ -61,6 +61,7 @@
 		1. 用`--debug`或 `--debug-brk`的标志启动应用程序，以调试模式运行
 		2. 另一终端运行 `$ node-inspector&`
 		3. Webkit浏览器打开 http://127.0.0.1:8080/?port=5858
+		4. 单击蓝色的play按钮继续执行
 
 + ## CommonJS 模块规范与Node模块的实现
 
@@ -116,7 +117,7 @@
 			* `.gitignore`从Git库忽略的文件清单
 			* `.npmignore`在npm注册库忽略的文件清单
 			* `LICENSE`模块授权文件
-			* `README.md
+			* `README.md`
 
 	- ### 模块开发
 
@@ -134,7 +135,7 @@
 			*	更新package.json
 
 			```json
-				"main": "./lib/module_name.js
+				"main": "./lib/module_name.js,
 			```
 
 		4. `test/test_assert.js`
@@ -156,7 +157,7 @@
 
 			```json
 				"script": {
-				"test": "node ./test/test_assert.js"
+					"test": "node ./test/test_assert.js"
 				}
 			```
 
@@ -165,8 +166,12 @@
 	* 核心模块源码都在Node的lib子目录中
 	- ### Global Object全局对象：`global`全局变量的宿主
 
-		+ 全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
+		+	全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
 
+		+	`__filename` 当前文件名、`__dirname` 当前文件所在目录
+			* `__dirname`该全局变量文件的绝对路径
+			* `process.cwd()`运行脚本进程的绝对路径
+		+	setTimeout/clearTimeout、setInterval/clearInterval、require()
 		+ ####`console`用于提供控制台标准输出
 
 			* `console.log()`向标准输出流打印字符并以换行符结束
@@ -228,8 +233,7 @@
 			-	`Buffer.isEncoding(encoding)`
 			-	`Buffer.isBuffer(obj)`
 			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
-		+ #### setTimeout/clearTimeout、setInterval/clearInterval、require()
-		+ #### `__filename` 当前文件名、`__dirname` 当前文件所在目录
+
 
 	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
 
@@ -285,7 +289,11 @@
 
 		*	util.isArray()/util.isRegExp()/util.isDate()/util.isError()
 		*	util.format()/util.debug()
-
+	- ### `DNS`
+		* dns.resolve()
+		* dns.reverse()
+	- ### `crypto`
+		- 包含随机生成器、MD5、HMAC-SHA1和一些其他算法
 	- ### `Events`事件驱动：可为事件设置监听器和处理器
 
 		*	客户端相比，Node.js中更常见为网络事件
@@ -545,13 +553,16 @@
 	- ### `Connect`Node的"插件"库，创造了“中间件”`middleware`来描述插入式的Node模块
 
 	- ### `Express`Web 程序框架
-
+		* `$ express [options] [dir/appname];`
+			* `-e,--ejs`添加ejx引擎
+			* `-H,--hogan`添加Hogan引擎
+			* `-C <engine>,--css <engine>`添加样式表<engine>支持模块，如LESS、Stylus、Compass
+			* `-f,--force`强制应用在非空目录中生成
 		* 使用 Scaffold脚手架 快速构建,生成套路化代码
-			* `$ npm install -g express && npm install -g express-generator`
+			* `$ npm install -g express-generator;`
 			* `$ express -e website;`建立工程，目录app.js、package.json、public、routes、views
 			* `$ cd website && npm install;`进入工程安装依赖
-			* `$ npm start;`启动
-			* 浏览器访问localhost:3000
+			* `$ npm start;`启动,浏览器访问localhost:3000
 		* `中间件`处理HTTP请求 的 函数
 			中间件是有3个参数的函数：请求对象、响应对象、next函数
 		* API
@@ -604,7 +615,8 @@
 	- [Request](http://github.com/mikeal/request);
 	- [Optimist](http://github.com/substack/node-optimist);
 	- Chai 断言库
-	- nvm
+
+	- ### nvm
 		* `$ nvm install node;`安装最新版本node
 		* `$ nvm install 4.5;`指定版本
 		* `$ nvm use node;`用最新版本
@@ -612,6 +624,12 @@
 		* `$ nvm ls;`查看本地安装的所有版本
 		* `$ nvm ls-remote;`查看服务器上所有可供安装的版本。
 		* `$ nvm deactivate;`退出已经激活的nvm，使用deactivate命令
+
+	- ### 自动化：通过fs模块监听文件内容变化时重启服务
+		* `forever`常在生产环境中使用
+		* `node-dev`
+		* `nodemon`
+		* `supervisor`
 
 + ## 知识点
 
