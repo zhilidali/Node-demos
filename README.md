@@ -48,6 +48,7 @@
 	- ###2. Node调试器：
 
 		* 设置断点debugger，运行 `$ node debug app;`
+		* `cont,c`继续执行,直到遇到下一个断点
 		* `repl`启动REPL,允许查看变量值和执行代码
 		* `next,n`下一步：跳到下一个语句
 		* `step,s`步入：如果是函数就进入当前执行函数中语句，否则跳过
@@ -617,13 +618,19 @@
 	- Chai 断言库
 
 	- ### nvm
-		* `$ nvm install node;`安装最新版本node
-		* `$ nvm install 4.5;`指定版本
-		* `$ nvm use node;`用最新版本
-		* `$ nvm use 4.5;`
-		* `$ nvm ls;`查看本地安装的所有版本
-		* `$ nvm ls-remote;`查看服务器上所有可供安装的版本。
-		* `$ nvm deactivate;`退出已经激活的nvm，使用deactivate命令
+		1. (n)[https://github.com/tj/n]不支持windows
+		2. (nvm)[https://github.com/creationix/nvm]不支持windows
+		3. (nvm-windows)[https://github.com/coreybutler/nvm-windows]
+			* `$ nvm install node;`安装最新版本node
+			* `$ nvm install 4.5;`指定版本
+			* `$ nvm use node;`用最新版本
+			* `$ nvm use 4.5;`
+			* `$ nvm ls;`查看本地安装的所有版本
+			* `$ nvm ls-remote;`查看服务器上所有可供安装的版本。
+			* `$ nvm deactivate;`退出已经激活的nvm，使用deactivate命令
+		4. (nvmw)(https://github.com/hakobera/nvmw)
+		5. (nodist)[https://github.com/marcelklehr/nodist]仅限Windows
+		6. (nodenv)[https://github.com/nodenv/nodenv]
 
 	- ### 自动化：通过fs模块监听文件内容变化时重启服务
 		* `forever`常在生产环境中使用
