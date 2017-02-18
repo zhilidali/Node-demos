@@ -1,53 +1,61 @@
-+ # Node
-	0. [模块的历程](//github.com/zhilidali/newmodule)
-	1. [Socket.io](socket.io)
-	2. [JSON API](JSON%20API)
-	3. [Process进程模块](Process)
-	4. [child_process子进程](child_process)
-	5. [assert断言](assert)QA测试
++ # Node.js
+	> 采用event-driven事件驱动(用事件轮询)和非阻塞式I/O(用异步)，构建运行在能够实时响应高并发请求的平台`I/O密集型`
+	+ *DIRT程序*: `data-intensive real-time`数据密集型实时程序
+	+ JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
+	+ 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
+	一个搭建在Chrome JavaScript运行时上的平台，用于构建高速、可伸缩的网络程序。
+	Node.js采用的事件驱动、非阻塞I/O模型，使它既轻量又高效，并成为构建运行在分布式设备上的数据密集型实时程序的完美选择
 
-+ ## 书单阅读：
+	+ ## 目录
 
-	* 《Node.js开发指南》
-	* 《Node.js入门经典》
-	* 《Node与Express开发》
-	* 《Node即学即用》
-	* 《Node.js实战》
-	* 《深入浅出Node.js》
-	* 《Node.js项目实战：构建可扩展的Web应用》
+	+ ## demo
+		0. [模块的历程](//github.com/zhilidali/newmodule)
+		1. [Socket.io](socket.io)
+		2. [JSON API](JSON API)
+		3. [Process进程模块](Process)
+		4. [child_process子进程](child_process)
+		5. [assert断言](assert)QA测试
 
-+ ## Node 能够实时响应高并发请求的平台`I/O密集型`
+	+ ## 书单阅读：
 
-	* `DIRT程序`:数据密集型实时`data-intensive real-time`程序
-	* 采用event-driven事件驱动（用事件轮询）和非阻塞式异步I/O
-		* JavaScript是单线程(串行) 事件处理器在线程空闲之前不会运行。
-		* 使用事件循环(事件队列)和回调是支持异步代码并解决并发问题的高效方式，
+		* 《Node.js开发指南》
+		* 《Node.js入门经典》
+		* 《Node与Express开发》
+		* 《Node即学即用》
+		* 《Node.js实战》
+		* 《深入浅出Node.js》
+		* 《Node.js项目实战：构建可扩展的Web应用》
+
+	+ ## 术语
+		+ `data-intensive real-time`=> *数据密集型实时程序* *DIRT程序*
+		+ `Representational State Transfer`=> *REST* *表征状态转移*
 
 + ## 调试
 
-	- `$ node -e 'console.log("Hello World")';`
+	- ###0. CLI调试
+		> `$ node -e 'console.log("Hello World")';`
 
-	- ### 1. REPL: 交互式命令行解析器`Read-Evaluate-Print-Loop` 输入-求值-输出 循环
+	- ###1. REPL
+		> 交互式命令行解析器: `Read-Evaluate-Print-Loop` 输入-求值-输出 循环
 
 		* 参数
-			* `$ node --use_strict;`严格模式下运行
+			* `$ node --use_strict;` 严格模式下运行
 			* `_`表示上一个命令执行的结果
 		* 快捷键
-			* `ctrl + c` 退出当前终端。
+			* `ctrl + c` 退出当前终端
 			* `ctrl + c` 按下两次 - 退出解析器
-			* `ctrl + d` 退出Node REPL
+			* `ctrl + d` 退出 Node REPL
 			* `向上/向下`查看输入的历史命令
 			* `Tab`		列出当前命令
 		* 以`.`开头的元命令
-			* `help`列出使用命令
-			* `break` `clear`清除内存中任何变量或闭包，无需重启解析器
-			* `exit`将退出Node解析器
-			* `save filename`保存当前的 Node REPL 会话到指定文件
-			* `load filename`载入当前 Node REPL 会话的文件内容。
+			* `help` 列出使用命令
+			* `break` `clear`	清除内存中任何变量或闭包，无需重启解析器
+			* `exit` 退出 Node REPL
+			* `save filename`	保存当前 Node REPL 会话到指定文件
+			* `load filename`	载入当前 Node REPL 会话的文件内容
 
-	- ###2. Node调试器：
-
-		* 设置断点debugger，运行 `$ node debug app;`
+	- ###2. Node调试器
+		> 设置断点`debugger`，运行 `$ node debug app;`, 5858
 		* `cont,c`继续执行,直到遇到下一个断点
 		* `repl`启动REPL,允许查看变量值和执行代码
 		* `next,n`下一步：跳到下一个语句
@@ -57,31 +65,32 @@
 		* `watch(expr)`向观察列表中添加表达式，这样在调试器中进入函数或者移动时会显示出来。
 		* `list(n)`列出调试器中当前停止行的前面和后面的n行代码。
 
-	- ###3. Node探查器：Inspector：`$ npm install -g inspector`
+	- ###3. Node探查器
+		> Inspector: `$ npm install -g inspector;`
 
 		1. 用`--debug`或 `--debug-brk`的标志启动应用程序，以调试模式运行
 		2. 另一终端运行 `$ node-inspector&`
 		3. Webkit浏览器打开 http://127.0.0.1:8080/?port=5858
 		4. 单击蓝色的play按钮继续执行
 
-+ ## CommonJS 模块规范与Node模块的实现
++ ## CommonJS 模块规范
 
 	- ### Node模块机制
 
 		1. 模块定义
-			* exports 对象用于导出当前模块的方法或变量
-			* module 对象，代表模块自身，exports 是 module 的属性
-			* 在Node 中，一个文件就是一个模块
-		2. 模块标识:传递给`require()`的参数，小驼峰命名
+			+ exports 对象: 导出当前模块的方法或变量
+			+ module 对象: 代表模块自身，exports 是 module 的属性
+			+ 在 Node 中，一个文件就是一个模块
+		2. 模块标识: 传递给`require()`的参数，小驼峰命名
 		3. 模块引用：核心模块，文件模块
-			**`require()`方法接受模块标识，以此引入一个模块的API到当前上下文中**
+			* `require()`方法接受模块标识，以此引入一个模块的API到当前上下文中**
 			* `路径分析`模块标识符分析 模块路径
 				* `核心模块`优先级仅次于缓存加载，加载过程最快
 				* `路径形式文件模块`.或..开始的相对路径、以`/`开始的绝对路径速，度慢于核心模块
 				* `非路径形式的文件模块`
 			* `文件定位`
-				1.文件扩展名分析 .js .json .node
-				2.目录分析和包
+				1. 文件扩展名分析 .js .json .node
+				2. 目录分析和包
 			* `编译执行`
 				* `.js文件`通过fs模块同步读取后编译执行，头尾包装
 					* `(function (exports, require, module, __filename, __dirname) {\n, \n});`
@@ -89,40 +98,24 @@
 				* `json文件`通过fs模块同步读取后，用JSON.parse()解析
 				*  `.其他扩展名文件`都被当做.js文件载入
 
- 	- ### AMD规范
-
-		```javascript
-			define([id], [dependences], factory)
-		```
-
-	- ### CMD规范
-
-		```javascript
-			define(['dep1', 'dep2'], function (dep1, dep2) {
-				return function () {};
-			});
-		```
-
-	- ### `包结构`组织包中各种文件
-
-		* 一个存档文件，即一个目录直接打包为.zip或tar.gz格式的文件，安装后解压还原为目录
-			* `package.json`包描述文件
-			* `bin`存放可执行二进制文件
-			* `lib`存放JS代码
-			* `doc`存放目录
-			* 
-			* `test`存放单元测试用例的代码
-			* `examples`存放如何使用模块的实际示例目录
-			* `man`存放模块的任何手册页目录
-			* `src`存放源文件的文件夹，常用于CoffeeScript文件
-			* `.gitignore`从Git库忽略的文件清单
-			* `.npmignore`在npm注册库忽略的文件清单
-			* `LICENSE`模块授权文件
-			* `README.md`
+	- ### 包结构
+		> 组织包中各种文件，一个存档文件，即一个目录直接打包为.zip或tar.gz格式的文件，安装后解压还原为目录
+		+ `package.json`包描述文件
+		+ `bin`存放可执行二进制文件
+		+ `lib`存放JS代码
+		+ `doc`存放目录
+		+
+		+ `test`存放单元测试用例的代码
+		+ `examples`存放如何使用模块的实际示例目录
+		+ `man`存放模块的任何手册页目录
+		+ `src`存放源文件的文件夹，常用于CoffeeScript文件
+		+ `.gitignore`从Git库忽略的文件清单
+		+ `.npmignore`在npm注册库忽略的文件清单
+		+ `LICENSE`模块授权文件
+		+ `README.md`
 
 	- ### 模块开发
-
-		* 创建一个返回`Hello World`的hello()函数的module_name模块
+		> 创建一个返回`Hello World`的hello()函数的module_name模块
 
 		1. `$ npm init;`
 		2. `$ npm link;`会将模块全局安装,模块名称采用package.json中给出的名称
@@ -162,23 +155,41 @@
 				}
 			```
 
+	- ### 其他模块规范
+	 	- #### AMD规范
+
+			```javascript
+				define([id], [dependences], factory)
+			```
+
+		- #### CMD规范
+
+			```javascript
+				define(['dep1', 'dep2'], function (dep1, dep2) {
+					return function () {};
+				});
+			```
+
 + ## Node.js核心模块
+	> 核心模块源码在Node的lib子目录中
 
-	* 核心模块源码都在Node的lib子目录中
-	- ### Global Object全局对象：`global`全局变量的宿主
-
+	- ### `global`全局对象
+		> 全局变量的宿主
 		+	全局变量:最外层定义变量/"全局对象属性"/"隐式定义变量";
 
 		+	`__filename` 当前文件名、`__dirname` 当前文件所在目录
 			* `__dirname`该全局变量文件的绝对路径
-			* `process.cwd()`运行脚本进程的绝对路径
+			* `process.cwd()`: 运行脚本进程的绝对路径
 		+	setTimeout/clearTimeout、setInterval/clearInterval、require()
-		+ ####`console`用于提供控制台标准输出
 
+		+ ####`console`
+			> 用于提供控制台标准输出
 			* `console.log()`向标准输出流打印字符并以换行符结束
 			* `console.error()`向标准错误流...
 			* `console.trace()`向标准错误流输出当前的调用栈
-		+ ####`process` 进程:描述当前Node.js进程状态的对象，提供了一个与操作系统的简单接口
+
+		+ ####`process`进程
+			> 描述当前Node.js进程状态的对象，提供了一个与操作系统的简单接口
 			* `process.cwd()`获取程序当前目录
 			* `process.chdir('目录')`改变应用程序目录
 			* `process.argv`命令行参数数组 ["node", "script.js", "--v"...]
@@ -188,15 +199,17 @@
 			* `process.exit(code)`在程序内杀死进程，退出程序，code为返回的代码，默认为0
 			* `process.on()`监听事件进程 "exit","uncaughtException","SIGINT"
 			* `process.nextTick(callback)`为事件循环设置一项任务
-			* `process.env.SOMETHING`
-				* 设置环境变量
-					* `SET SOMETHING='12345';`Window
-					* `export SOMETHING='123456'`UNIX
+			* `process.env.SOMETHING`设置环境变量*environment variables*
+				* `$ env`列出当前的环境变量
+				* `$ SOMETHING='123456' node app.js`==> process.env.DOMETHING === '123456'
+				* `$ SET SOMETHING='12345';`Window
+				* `$ export SOMETHING='123456'`UNIX
 
-		+ #### `Buffer` 缓冲区：处理二进制数据的方式，对原始内存的分配
+		+ #### `Buffer`缓冲区
+			> 处理二进制数据的方式，对原始内存的分配
 			- 全局变量类型，是一个比较罕见的不需要 require('buffer') 就可以使用的类
 
-			- #####示例场景
+			- ##### 应用场景
 
 				*	通过TCP连接和接收数据
 				*	从图像或者压缩文件读取二进制数据
@@ -235,8 +248,8 @@
 			-	`Buffer.isBuffer(obj)`
 			-   `Buffer.byteLength(str)获得字符串在编码上的字节长度`
 
-
-	- ### `Util`实用工具：提供常用函数集合，弥补JS的功能过于精简的不足
+	- ### `Util`实用工具
+		> 提供常用函数集合，弥补JS的功能过于精简的不足
 
 		*	`util.inherits(constructor, superConstrctor)`实现对象间原型继承
 
@@ -290,18 +303,22 @@
 
 		*	util.isArray()/util.isRegExp()/util.isDate()/util.isError()
 		*	util.format()/util.debug()
+
 	- ### `DNS`
 		* dns.resolve()
 		* dns.reverse()
+
 	- ### `crypto`
 		- 包含随机生成器、MD5、HMAC-SHA1和一些其他算法
-	- ### `Events`事件驱动：可为事件设置监听器和处理器
 
-		*	客户端相比，Node.js中更常见为网络事件
+	- ### `Events`事件驱动
+		> 可为事件设置监听器和处理器
+
+		* 客户端相比，Node.js中更常见为网络事件
 			1. 服务器的响应
 			2. 从文件读取数据
 			3. 从数据库返回数据
-		*	events.EventEmitter//事件发射与事件监听功能的封装
+		* events.EventEmitter,事件发射器：事件发射与事件监听功能的封装
 			* `EventEmitter.on(event, listener)`	为指定事件注册一个监听器
 			* `EventEmitter.emit(event, [arg1], [arg2], [...])`	发射事件
 			* `EventEmitter.once(event, listener)`	为指定事件注册一个单次监听器
@@ -320,7 +337,7 @@
 					emitter.emit('someEvent', 'byvoid', 1991);
 				```
 
-		*	error 事件
+		* error 事件
 
 	- ### `url`
 
@@ -345,11 +362,11 @@
 
 	- ### `path`
 
-		* `path.normalize()`将不规范的路径格式化为标准路径
-		* `path.join()`组合路径
-		* `path.dirname()`返回路径中的目录名
-		* `path.basename()`可返回路径中的最后一部分
-		* `path.extname()`返回路径中文件的扩展名
+		+ `path.normalize()`将不规范的路径格式化为标准路径
+		+ `path.join()`组合路径
+		+ `path.dirname()`返回路径中的目录名
+		+ `path.basename()`可返回路径中的最后一部分
+		+ `path.extname()`返回路径中文件的扩展名
 
 	- ### `querystring`
 
@@ -362,7 +379,7 @@
 
 	- ### `HTTP` 服务器与客户端
 
-		+ #### `HTTP服务器`
+		+ #### HTTP服务器
 			1. `http.Server`一个基于事件的 HTTP 服务器
 				* `request`客户端请求到来时，该事件被触发
 					* http.createServer([requestListener]),是 http 的一个捷径
@@ -382,18 +399,18 @@
 				* `connection`当TCP连接建立时，该事件被触发，提供一个socket参数，为net.Socket的实例
 				* `close`当服务器关闭时，事件触发
 			2. `http.ServerRequest`HTTP 请求的信息
-				`data`当请求到来时，该事件被触发，chunk参数表示接收到的数据
-				`end`当请求体数据传输完成时，该事件被触发
-				`close`用户当前请求结束时，该事件被触发
+				+ `data`当请求到来时，该事件被触发，chunk参数表示接收到的数据
+				+ `end`当请求体数据传输完成时，该事件被触发
+				+ `close`用户当前请求结束时，该事件被触发
 			3. 获取GET 请求内容
-				通过url.parse手动解析路径中内容
+				+ 通过url.parse手动解析路径中内容
 			4. 获取Post 请求内容
 			5. `http.ServerResponse`返回给客户端的信息
 				* `response.writeHead(statusCode, [headers])`向请求的客户端发送响应头
 				* `response.write(data, [encoding])`向请求的客户端发送响应内容
 				* `response.end([data], [encoding])`结束响应，告知客户端所有发送已经完成
 
-		+ #### `HTTP 客户端`
+		+ #### HTTP 客户端
 			* `http.request(options,callback)`发起HTTP请求，返回一个http.ClientResponse的实例
 				* `options`类关联数组对象
 					* `host`： 请求的域名或IP地址
@@ -404,7 +421,8 @@
 				* `callback`回调函数，为http.ClientResponse的实例
 			* `http.get(options, callback)`
 
-	- ### `Stream` 流：Node移动数据的方式:大数据情况下必须使用流式处理
+	- ### `Stream`流
+		> Node移动数据的方式: 大数据情况下必须使用流式处理
 
 		* 三个主要流：标准输入／标准输出／标准错误
 		* “比如用流读写文件数据时，由于数据是流，意味着在完成文件读取之前，从最初收到几个字节开始，就可以对数据进行操作”
@@ -414,7 +432,7 @@
 			* var Writable = stream.Writable
 			* var Duplex = stream.Duplex
 			* var Transform = stream.Transform
-		使用Stream可实现数据的流式处理，如：
+		* 使用Stream可实现数据的流式处理，如：
 
 			```javascript
 				var fs = require('fs')
@@ -423,7 +441,7 @@
 				fs.createReadStream(bigFile).pipe(process.stdout)
 			```
 
-		Readable 可读流
+		* Readable 可读流
 
 	- ### `fs`文件系统
 
@@ -444,9 +462,8 @@
 		*	`fs.read(fd, buffer, offset, length, position, [callback(err, byteRead, cuffer)])`指定的文件描述符 fd 中读取数据并写入 buffer 指向的缓冲区对象
 
 	- ### `child_process` 子进程
-
-		* 子进程结束后，主进程通过回调取得结果
-		* 场景：
+		> 子进程结束后，主进程通过回调取得结果
+		* 场景
 			*	复杂等式计算
 			*	使用位于node外部的基于系统工具操作数据
 			*	执行资源密集型或花费大量时间来完成的操作
@@ -524,16 +541,15 @@
 		```javascript
 			var cluster = require('cluster');
 			cluster.fork();
-			cluster.on('death', function(){
+			cluster.on('death', function(worker){
 				console.log('子进程'+worker.pid+'死掉')
 			})
 		```
 
 	- ### `assert`断言
-
-		* 表达式不符合，抛出错误
+		> 表达式不符合，抛出错误
 		* var assert = require('assert');
-		* assert(value,message);//value对应的布尔值为false，抛出错误
+		* assert(value, [message]);//value为falsy时，抛出错误
 		* assert.ok();//同上
 		* assert.equal(a, b [,"异常抛出时显示可选"]);
 		* assert.notEual()
@@ -551,7 +567,8 @@
 			使服务器和浏览器可以推送数据，数据交换快
 		*	Socket.IO 提供通过WebSocket进行通信的一种简单方式
 
-	- ### `Connect`Node的"插件"库，创造了“中间件”`middleware`来描述插入式的Node模块
+	- ### `Connect`
+		> Node的"插件"库，创造了“中间件”`middleware`来描述插入式的Node模块
 
 	- ### `Express`Web 程序框架
 		* `$ express [options] [dir/appname];`
@@ -565,7 +582,7 @@
 			* `$ cd website && npm install;`进入工程安装依赖
 			* `$ npm start;`启动,浏览器访问localhost:3000
 		* `中间件`处理HTTP请求 的 函数
-			中间件是有3个参数的函数：请求对象、响应对象、next函数
+			* 中间件是有3个参数的函数：请求对象、响应对象、next函数
 		* API
 			* `var express = require('express');`
 			* `var app = express();`
@@ -603,7 +620,7 @@
 			* `req.params.参数名`
 			* `res.send([body|status], [body]);`
 
-	- ### [Underscore](http://github.com/documentcloud/underscore)
+	- ### [Underscore](//github.com/documentcloud/underscore)
 
 		```jacascript
 			var arr = [1, 2, 3];
@@ -612,15 +629,15 @@
 			});
 		```
 
-	- [CoffeScript](http://github.com/jashkenas/coffee-script);
-	- [Request](http://github.com/mikeal/request);
-	- [Optimist](http://github.com/substack/node-optimist);
+	- [CoffeScript](//github.com/jashkenas/coffee-script);
+	- [Request](//github.com/mikeal/request);
+	- [Optimist](//github.com/substack/node-optimist);
 	- Chai 断言库
 
 	- ### nvm
-		1. (n)[https://github.com/tj/n]不支持windows
-		2. (nvm)[https://github.com/creationix/nvm]不支持windows
-		3. (nvm-windows)[https://github.com/coreybutler/nvm-windows]
+		1. [n](//github.com/tj/n)不支持windows
+		2. [nvm](//github.com/creationix/nvm)不支持windows
+		3. [nvm-windows](//github.com/coreybutler/nvm-windows)
 			* `$ nvm install node;`安装最新版本node
 			* `$ nvm install 4.5;`指定版本
 			* `$ nvm use node;`用最新版本
@@ -628,11 +645,12 @@
 			* `$ nvm ls;`查看本地安装的所有版本
 			* `$ nvm ls-remote;`查看服务器上所有可供安装的版本。
 			* `$ nvm deactivate;`退出已经激活的nvm，使用deactivate命令
-		4. (nvmw)(https://github.com/hakobera/nvmw)
-		5. (nodist)[https://github.com/marcelklehr/nodist]仅限Windows
-		6. (nodenv)[https://github.com/nodenv/nodenv]
+		4. (nvmw)(//github.com/hakobera/nvmw)
+		5. (nodist)[//github.com/marcelklehr/nodist]仅限Windows
+		6. (nodenv)[//github.com/nodenv/nodenv]
 
-	- ### 自动化：通过fs模块监听文件内容变化时重启服务
+	- ### 自动化
+		> 通过fs模块监听文件内容变化时重启服务
 		* `forever`常在生产环境中使用
 		* `node-dev`
 		* `nodemon`
@@ -703,7 +721,8 @@
 				```
 		* TDD测试驱动开发
 
-	- ### `REST`表征状态转移(Representational State Transfer)
+	- ### `REST`表征状态转移
+		> Representational State Transfer
 
 		* Web服务: 指任何可以通过HTTP访问的应用程序编程接口API
 		* HTTP谓词verb
@@ -717,12 +736,13 @@
 			* 保存在数据库中
 			* 保存在cookie或会话中
 
-	- ### Template Engine 模板引擎//从页面模板根据一定规则生成 HTML工具
+	- ### Template Engine 模板引擎
+		> 从页面模板根据一定规则生成 HTML工具
 
 		* 模板视图引擎 `Jade`、`Handlebars`、`ejs`
 			* `ejs`系统标签//Embedded JavaScript
 				* `<% code %>`JS代码
-				* `<%= code %>`显示替换过HEML特殊字符的内容
+				* `<%= code %>`显示替换过HEML特殊字符的内容(文本)
 				* `<%- code %>`显示原始HTML内容
 			* `Handlebars`
 				* `context`上下文对象：渲染模板时传递给模板引擎的对象，替换标识
@@ -745,6 +765,7 @@
 	- ### 工具
 
 		* windows命令行工具`Console2`
-		* Windows版的[cURL](https://curl.haxx.se/download.html) 找到Win32-Generic"区域
+		* Windows版的[cURL](//curl.haxx.se/download.html) 找到Win32-Generic"区域
+			> 是一个强大的命令行HTTP客户端，可以用来向目标服务器发送请
 			最好选择支持SSL和SSH功能的版本（如跳转另一页面，点击"Download WITHSUPPORT SSL"），
 			解压文件，将curl.exe放到PATH路径下或者用户目录
